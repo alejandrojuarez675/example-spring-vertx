@@ -13,8 +13,8 @@ public class ExampleVerticle extends AbstractVerticle {
 
 	private static final Logger logger = LoggerFactory.getLogger(ExampleVerticle.class);
 
-	public static final String ADD_SALUDO = "example.saludo.address";
-	public static final String ADD_CUSTOM_SALUDO = "example.saludo.custom.address";
+	public static final String ADDR_SALUDO = "example.saludo.address";
+	public static final String ADDR_CUSTOM_SALUDO = "example.saludo.custom.address";
 	
 	@Autowired
 	ExampleService exampleService;
@@ -24,36 +24,36 @@ public class ExampleVerticle extends AbstractVerticle {
 		logger.info("Init ExampleVerticle");
 		super.start();
 		
-		vertx.eventBus().consumer(ADD_SALUDO, this::eventTargetSaludo);
-		vertx.eventBus().consumer(ADD_CUSTOM_SALUDO, this::eventTargetCustomSaludo);
+		vertx.eventBus().consumer(ADDR_SALUDO, this::eventTargetSaludo);
+		vertx.eventBus().consumer(ADDR_CUSTOM_SALUDO, this::eventTargetCustomSaludo);
 	}
 
 	private void eventTargetSaludo(Message<String> msg) {
-		logger.info("Event " + ADD_SALUDO);
+		logger.info("Event " + ADDR_SALUDO);
 		
-		vertx.<String> executeBlocking(future -> {
-            future.complete(exampleService.getSaludo());
-	    }, result -> {
-	        if (result.succeeded()) {
-	            msg.reply(result.result());
-	        } else {
-	            msg.reply(result.cause().toString());
-	        }
-	    });
+		vertx.<String>executeBlocking(future -> {
+			future.complete(exampleService.getSaludo());
+		}, result -> {
+			if (result.succeeded()) {
+				msg.reply(result.result());
+			} else {
+				msg.reply(result.cause().toString());
+			}
+		});
 	}
 	
 	private void eventTargetCustomSaludo(Message<String> msg) {
-		logger.info("Event " + ADD_CUSTOM_SALUDO);
+		logger.info("Event " + ADDR_CUSTOM_SALUDO);
 		
-		vertx.<String> executeBlocking(future -> {
-            future.complete(exampleService.getCustomSaludo(msg.body()));
-	    }, result -> {
-	        if (result.succeeded()) {
-	            msg.reply(result.result());
-	        } else {
-	            msg.reply(result.cause().toString());
-	        }
-	    });
+		vertx.<String>executeBlocking(future -> {
+			future.complete(exampleService.getCustomSaludo(msg.body()));
+		}, result -> {
+			if (result.succeeded()) {
+				msg.reply(result.result());
+			} else {
+				msg.reply(result.cause().toString());
+			}
+		});
 	}
 
 }

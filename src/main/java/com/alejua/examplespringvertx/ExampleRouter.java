@@ -26,8 +26,8 @@ public class ExampleRouter implements Handler<RoutingContext> {
 	private void getSaludo(RoutingContext ctx, Vertx vertx) {
 		logger.info("Llamo a /example/saludo");
 
-		logger.info("Request Event " + ExampleVerticle.ADD_SALUDO);
-		vertx.eventBus().request(ExampleVerticle.ADD_SALUDO, "", reply -> {
+		logger.info("Request Event " + ExampleVerticle.ADDR_SALUDO);
+		vertx.eventBus().request(ExampleVerticle.ADDR_SALUDO, "", reply -> {
 			if (reply.succeeded()) {
 				
 				SaludoDTO saludoDTO = new SaludoDTO(reply.result().body().toString());
@@ -47,8 +47,8 @@ public class ExampleRouter implements Handler<RoutingContext> {
 
 		String name = ctx.pathParam("name");
 		
-		logger.info("Request Event " + ExampleVerticle.ADD_CUSTOM_SALUDO);
-		vertx.eventBus().request(ExampleVerticle.ADD_CUSTOM_SALUDO, name, reply -> {
+		logger.info("Request Event " + ExampleVerticle.ADDR_CUSTOM_SALUDO);
+		vertx.eventBus().request(ExampleVerticle.ADDR_CUSTOM_SALUDO, name, reply -> {
 			if (reply.succeeded()) {
 				SaludoDTO saludoDTO = new SaludoDTO(reply.result().body().toString());
 				

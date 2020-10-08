@@ -19,10 +19,10 @@ public class HttpServerVerticle extends AbstractVerticle {
 		logger.info("Init HttpServerVerticle");
 		super.start();
 
-		logger.info("creo httpServer");
+		logger.info("Creo httpServer");
 		HttpServer server = vertx.createHttpServer();
 
-		logger.info("init rutas");
+		logger.info("Init rutas");
 		Router router = Router.router(vertx);
 		router.route("/example").handler(new ExampleRouter(vertx, router, "/example"));
 		router.route().handler(ErrorHandler::notFountError);
