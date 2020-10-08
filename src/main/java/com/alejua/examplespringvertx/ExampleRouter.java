@@ -38,6 +38,7 @@ public class ExampleRouter implements Handler<RoutingContext> {
 					.end(JsonObject.mapFrom(saludoDTO).encode());
 				
 			} else {
+				logger.error("ERROR: " + reply.cause().getMessage());
 				ctx.response().setStatusCode(500).setStatusMessage("Internal error").end();
 			}
 		});

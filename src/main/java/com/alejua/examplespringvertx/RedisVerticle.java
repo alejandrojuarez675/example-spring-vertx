@@ -1,7 +1,5 @@
 package com.alejua.examplespringvertx;
 
-import org.springframework.stereotype.Component;
-
 import io.vertx.core.AbstractVerticle;
 import io.vertx.core.Future;
 import io.vertx.core.eventbus.Message;
@@ -11,7 +9,6 @@ import io.vertx.redis.client.Redis;
 import io.vertx.redis.client.RedisAPI;
 import io.vertx.redis.client.RedisConnection;
 
-@Component
 public class RedisVerticle extends AbstractVerticle {
 	
 	private static final Logger logger = LoggerFactory.getLogger(RedisVerticle.class);

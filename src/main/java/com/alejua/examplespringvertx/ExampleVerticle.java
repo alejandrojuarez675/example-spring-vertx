@@ -37,7 +37,8 @@ public class ExampleVerticle extends AbstractVerticle {
 			if (result.succeeded()) {
 				msg.reply(result.result());
 			} else {
-				msg.reply(result.cause().toString());
+				logger.error(result.cause().getMessage());
+				msg.fail(0, result.cause().getMessage());
 			}
 		});
 	}
@@ -51,7 +52,8 @@ public class ExampleVerticle extends AbstractVerticle {
 			if (result.succeeded()) {
 				msg.reply(result.result());
 			} else {
-				msg.reply(result.cause().toString());
+				logger.error(result.cause().getMessage());
+				msg.fail(0, result.cause().getMessage());
 			}
 		});
 	}

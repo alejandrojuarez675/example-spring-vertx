@@ -13,13 +13,7 @@ import io.vertx.core.Vertx;
 public class ExampleSpringVertxApplication {
 
 	@Autowired
-	HttpServerVerticle httpServerVerticle;
-
-	@Autowired
-	ExampleVerticle exampleVerticle;
-	
-	@Autowired
-	RedisVerticle redisVerticle;
+	private MainVerticle mainVerticle;
 
 	public static void main(String[] args) {
 		SpringApplication.run(ExampleSpringVertxApplication.class, args);
@@ -28,9 +22,7 @@ public class ExampleSpringVertxApplication {
 	@PostConstruct
 	public void deployVerticle() {
 		Vertx vertx = Vertx.vertx();
-		vertx.deployVerticle(httpServerVerticle);
-		vertx.deployVerticle(exampleVerticle);
-		vertx.deployVerticle(redisVerticle);
+		vertx.deployVerticle(mainVerticle);
 	}
 
 }

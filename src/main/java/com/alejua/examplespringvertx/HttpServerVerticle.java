@@ -1,7 +1,5 @@
 package com.alejua.examplespringvertx;
 
-import org.springframework.stereotype.Component;
-
 import io.vertx.core.AbstractVerticle;
 import io.vertx.core.Promise;
 import io.vertx.core.http.HttpServer;
@@ -9,7 +7,6 @@ import io.vertx.core.logging.Logger;
 import io.vertx.core.logging.LoggerFactory;
 import io.vertx.ext.web.Router;
 
-@Component
 public class HttpServerVerticle extends AbstractVerticle {
 
 	private static final Logger logger = LoggerFactory.getLogger(ExampleRouter.class);
