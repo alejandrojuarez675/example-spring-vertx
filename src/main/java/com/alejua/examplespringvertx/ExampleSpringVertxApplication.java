@@ -17,6 +17,9 @@ public class ExampleSpringVertxApplication {
 
 	@Autowired
 	ExampleVerticle exampleVerticle;
+	
+	@Autowired
+	RedisVerticle redisVerticle;
 
 	public static void main(String[] args) {
 		SpringApplication.run(ExampleSpringVertxApplication.class, args);
@@ -27,6 +30,7 @@ public class ExampleSpringVertxApplication {
 		Vertx vertx = Vertx.vertx();
 		vertx.deployVerticle(httpServerVerticle);
 		vertx.deployVerticle(exampleVerticle);
+		vertx.deployVerticle(redisVerticle);
 	}
 
 }
