@@ -21,6 +21,7 @@ public class ExampleRouter implements Handler<RoutingContext> {
 		router.get(path + "/saludo").handler(ctx -> getSaludo(ctx, vertx));
 		router.get(path + "/saludo/:name").handler(ctx -> getCustomSaludo(ctx, vertx));
 		router.get(path + "/objetos").handler(ctx -> getObjetos(ctx, vertx));
+		router.get(path + "/users").handler(ctx -> getUsers(ctx, vertx));
 
 	}
 
@@ -82,7 +83,25 @@ public class ExampleRouter implements Handler<RoutingContext> {
 			}
 		});
 	}
+	
+	private void getUsers(RoutingContext ctx, Vertx vertx) {
+		logger.info("Llamo a /example/users");
+		
+		logger.info("Request Event " + ExampleVerticle.ADDR_GET_USERS);
+		vertx.eventBus().request(ExampleVerticle.ADDR_GET_USERS, "", reply -> {
+			if (reply.succeeded()) {
 
+				ctx.response()
+					.putHeader("content-type", "application/json")
+					.end(reply.result().body().toString());
+				
+			} else {
+				logger.error("ERROR: " + reply.cause().getMessage());
+				ctx.response().setStatusCode(500).setStatusMessage("Internal error").end();
+			}
+		});
+	}
+	
 	@Override
 	public void handle(RoutingContext ctx) {
 		router.handleContext(ctx);
